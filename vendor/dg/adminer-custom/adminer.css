@@ -18,19 +18,6 @@ body {
 	margin: 0;
 }
 
-html.remote, html.remote #breadcrumb, html.remote #lang {
-	border-top: 5px solid #DD1818;
-}
-
-html.remote body {
-	border-top-width: 35px;
-}
-
-html.remote #breadcrumb, html.remote #lang {
-	height: 35px;
-	line-height: 35px;
-}
-
 /* generic */
 a, a:visited {
 	padding: 2px 4px;
@@ -300,10 +287,6 @@ table code {
 #menu p {
 	margin: 0 0 4px;
 	padding: 0 0 4px;
-}
-
-#logins a {
-	display: block;
 }
 
 #tables {
@@ -582,8 +565,7 @@ input.required { box-shadow: 1px 1px 1px red; }
 .icon:hover { background-color: red; }
 .size { width: 6ex; }
 .help { cursor: help; }
-.logout { margin-top: .5em; position: fixed; top: 0; right: 0; z-index: 1; }
-.loadmore { margin-left: 1ex; }
+.logout { margin-top: .5em; position: absolute; top: 0; right: 0; }
 #dbs { overflow: hidden; }
 #logins, #tables { white-space: nowrap; overflow: auto; }
 #h1 { color: #777; text-decoration: none; font-style: italic; }

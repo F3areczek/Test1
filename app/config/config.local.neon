@@ -1,9 +1,10 @@
 parameters:
 
 
-database:
-	dsn: 'mysql:host=localhost;dbname=quickstart'
-	user: root
-	password:
-	options:
-		lazy: yes
+nette:
+	database:
+		dsn: 'mysql:host=127.0.0.1;dbname=test'
+		user:
+		password:
+		options:
+			lazy: yes

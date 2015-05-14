@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Model;
+namespace App;
 
 use Nette,
-	Nette\Utils\Strings,
-	Nette\Security\Passwords;
+	Nette\Utils\Strings;
 
 
 /**
@@ -38,6 +37,7 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 	public function authenticate(array $credentials)
 	{
 		list($username, $password) = $credentials;
+		$password = self::removeCapsLock($password);
 
 		$row = $this->database->table(self::TABLE_NAME)->where(self::COLUMN_NAME, $username)->fetch();
 
@@ -67,19 +67,22 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 	 */
 	public function add($username, $password)
 	{
-		try {
-			$this->database->table(self::TABLE_NAME)->insert(array(
-				self::COLUMN_NAME => $username,
-				self::COLUMN_PASSWORD_HASH => Passwords::hash($password),
-			));
-		} catch (Nette\Database\UniqueConstraintViolationException $e) {
-			throw new DuplicateNameException;
-		}
+		$this->database->table(self::TABLE_NAME)->insert(array(
+			self::COLUMN_NAME => $username,
+			self::COLUMN_PASSWORD_HASH => Passwords::hash(self::removeCapsLock($password)),
+		));
+	}
+
+
+	/**
+	 * Fixes caps lock accidentally turned on.
+	 * @return string
+	 */
+	private static function removeCapsLock($password)
+	{
+		return $password === Strings::upper($password)
+			? Strings::lower($password)
+			: $password;
 	}
 
 }
-
-
-
-class DuplicateNameException extends \Exception
-{}
